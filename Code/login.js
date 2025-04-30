@@ -72,7 +72,7 @@
             child,
           };
           fetch(
-            "https://https://raw.githubusercontent.com/MikeY-7777/Yap-Window-Copy/refs/heads/main/Code/chat.js?token=$(date +%s)",
+            "https://raw.githubusercontent.com/MikeY-7777/Yap-Window-Copy/refs/heads/main/Code/chat.js?token=$(date +%s)",
           )
             .then((r) => r.text())
             .then((chatCode) => {
