@@ -2012,8 +2012,19 @@ Make sure to follow all the instructions while answering questions.
             createSnakeGame();
           }
         }
-      } else if (pureMessage.trim().toLowerCase().startsWith("/insert_command")) {
-        /* CODE HERE*/
+      } else if (pureMessage.trim().toLowerCase().startsWith("/dino")) {
+        const botMessageRef = push(messagesRef);
+        await update(botMessageRef, {
+            User: "[Dino Game]",
+            Message: `
+                <div style="width:100%; text-align:center;">
+                    <iframe src="https://chromedino.com/" 
+                            style="width:600px; height:400px; border:none;"
+                            title="Dino Game"></iframe>
+                </div>
+            `,
+            Date: Date.now(),
+        });
       } else {
         const newMessageRef = push(messagesRef);
         await update(newMessageRef, {
