@@ -2020,7 +2020,7 @@ Make sure to follow all the instructions while answering questions.
                 <div style="width:100%; text-align:center;">
                     <iframe src="https://chromedino.com/" 
                             style="width:600px; height:400px; border:none;"
-                            title="Dino Game"></iframe>
+                            title="Dino Game"scrolling="no"></iframe>
                 </div>
             `,
             Date: Date.now(),
