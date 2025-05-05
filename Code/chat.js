@@ -2012,20 +2012,92 @@ Make sure to follow all the instructions while answering questions.
             createSnakeGame();
           }
         }
-      } else if (pureMessage.trim().toLowerCase().startsWith("/dino")) {
-        const botMessageRef = push(messagesRef);
-        await update(botMessageRef, {
-            User: "[Dino Game]",
-            Message: `
-                <div style="width:100%; text-align:center;">
-                    <iframe src="https://chromedino.com/" 
-                            style="width:600px; height:400px; border:none;"
-                            title="Dino Game"scrolling="no"></iframe>
-                </div>
-            `,
+      } // Add this block at line 2015
+} else if (pureMessage.trim().toLowerCase().startsWith("/prime")) {
+    const args = pureMessage.trim().split(" ");
+    const userMessageRef = push(messagesRef);
+    await update(userMessageRef, {
+        User: email,
+        Message: pureMessage,
+        Date: Date.now(),
+    });
+
+    if (args[1] === "single") {
+        const number = parseInt(args[2], 10);
+        if (isNaN(number)) {
+            const errorMessageRef = push(messagesRef);
+            await update(errorMessageRef, {
+                User: "[Prime Bot]",
+                Message: "Please provide a valid number for the single value check. Usage: /prime single <number>",
+                Date: Date.now(),
+            });
+        } else {
+            const isPrime = (n) => {
+                if (n <= 1) return false;
+                for (let i = 2; i * i <= n; i++) {
+                    if (n % i === 0) return false;
+                }
+                return true;
+            };
+            const result = isPrime(number)
+                ? `${number} is a prime number.`
+                : `${number} is not a prime number.`;
+            const botMessageRef = push(messagesRef);
+            await update(botMessageRef, {
+                User: "[Prime Bot]",
+                Message: result,
+                Date: Date.now(),
+            });
+        }
+    } else if (args[1] === "range") {
+        const start = parseInt(args[2], 10);
+        const end = parseInt(args[3], 10);
+        if (isNaN(start) || isNaN(end)) {
+            const errorMessageRef = push(messagesRef);
+            await update(errorMessageRef, {
+                User: "[Prime Bot]",
+                Message: "Please provide valid start and end numbers for the range check. Usage: /prime range <start> <end>",
+                Date: Date.now(),
+            });
+        } else if (start > end) {
+            const errorMessageRef = push(messagesRef);
+            await update(errorMessageRef, {
+                User: "[Prime Bot]",
+                Message: "The start number must be less than or equal to the end number.",
+                Date: Date.now(),
+            });
+        } else {
+            const primes = [];
+            for (let i = start; i <= end; i++) {
+                const isPrime = (n) => {
+                    if (n <= 1) return false;
+                    for (let i = 2; i * i <= n; i++) {
+                        if (n % i === 0) return false;
+                    }
+                    return true;
+                };
+                if (isPrime(i)) primes.push(i);
+            }
+            const result =
+                primes.length > 0
+                    ? `The prime numbers between ${start} and ${end} are: ${primes.join(", ")}`
+                    : `No prime numbers found between ${start} and ${end}.`;
+            const botMessageRef = push(messagesRef);
+            await update(botMessageRef, {
+                User: "[Prime Bot]",
+                Message: result,
+                Date: Date.now(),
+            });
+        }
+    } else {
+        const errorMessageRef = push(messagesRef);
+        await update(errorMessageRef, {
+            User: "[Prime Bot]",
+            Message: "Invalid command. Use /prime single <number> or /prime range <start> <end>.",
             Date: Date.now(),
         });
-      } else {
+    }
+} else {
         const newMessageRef = push(messagesRef);
         await update(newMessageRef, {
           User: email,
