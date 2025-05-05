@@ -2012,8 +2012,7 @@ Make sure to follow all the instructions while answering questions.
             createSnakeGame();
           }
         }
-      } // Add this block at line 2015
-} else if (pureMessage.trim().toLowerCase().startsWith("/prime")) {
+      } else if (pureMessage.trim().toLowerCase().startsWith("/prime")) {
     const args = pureMessage.trim().split(" ");
     const userMessageRef = push(messagesRef);
     await update(userMessageRef, {
@@ -2096,7 +2095,8 @@ Make sure to follow all the instructions while answering questions.
             Message: "Invalid command. Use /prime single <number> or /prime range <start> <end>.",
             Date: Date.now(),
         });
-    }
+    }// Add this block at line 2015
+} 
 } else {
         const newMessageRef = push(messagesRef);
         await update(newMessageRef, {
